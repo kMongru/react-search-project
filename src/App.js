@@ -1,9 +1,11 @@
 import './styles/App.css';
 
+import IslandVisualization from './islandVisualization/IslandVisualization';
+
 function App() {
   return (
     <div className='App'>
-      <h2>GRID LOCATION</h2>
+      <IslandVisualization></IslandVisualization>
     </div>
   );
 }
