@@ -1,3 +1,7 @@
 .grid {
   margin: 100px 0 0;
 }
+
+.grid-row {
+  height: var(--node-dimensions);
+}

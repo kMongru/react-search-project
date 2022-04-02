@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './node.css';
 
-const Node = (col, row, isIsland, onMouseDown, onMouseEnter, onMouseUp) => {
-  const extraClassName = isIsland ? 'node-wall' : '';
+const Node = ({ row, col, isIsland, onClick }) => {
+  const extraClassName = isIsland ? 'island' : 'water';
 
   return (
     <div
       id={`node-${row}-${col}`}
+      isIsland={isIsland}
       className={`node ${extraClassName}`}
-      onMouseDown={() => onMouseDown(row, col)}
-      onMouseEnter={() => onMouseEnter(row, col)}
-      onMouseUp={() => onMouseUp()}
+      onClick={() => {
+        onClick();
+      }}
     ></div>
   );
 };

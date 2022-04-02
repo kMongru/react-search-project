@@ -1,8 +1,17 @@
 .node {
-  width: 25px;
-  height: 25px;
+  width: var(--node-dimensions);
+  height: var(--node-dimensions);
   outline: 1px solid rgb(175, 216, 248);
   display: inline-block;
+  cursor: pointer;
+}
+
+.water {
+  background-color: aqua;
+}
+
+.island {
+  background-color: rgb(12, 53, 71);
 }
 
 .node-finish {
@@ -44,10 +53,6 @@
     transform: scale(1);
     background-color: rgba(0, 190, 218, 0.75);
   }
-}
-
-.node-wall {
-  background-color: rgb(12, 53, 71);
 }
 
 .node-shortest-path {

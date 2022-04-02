@@ -5,48 +5,46 @@ import './islandVisualization.css';
 
 const IslandVisualization = (props) => {
   const [grid, setGrid] = useState([]);
-  const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
   useEffect(() => {
-    const grid = getInitialGrid();
-    setGrid(grid);
+    handleReset();
   }, []);
 
-  const handleMouseDown = (row, col) => {
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
-    setGrid(newGrid);
-    setMouseIsPressed(true);
+  const visualizeBFS = () => {
+    for (let r = 0; r < grid[0].length; r++) {
+      for (let c = 0; c < grid.length; c++) {}
+    }
   };
 
-  const handleMouseEnter = (row, col) => {
-    if (mouseIsPressed) return;
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
+  const handleNodeStateChange = (row, col) => {
+    // console.log(row);
+    const newGrid = getUpdatedGrid(grid, row, col);
     setGrid(newGrid);
   };
 
-  const handleMouseUp = () => {
-    setMouseIsPressed(false);
+  const handleReset = () => {
+    const grid = getInitialGrid();
+    setGrid(grid);
   };
 
   return (
     <>
-      {/* <button onClick={() => this.visualizeBFS()}>Breath First Search</button> */}
       <div className='grid'>
         {grid.map((row, rowIdx) => {
           return (
-            <div key={rowIdx}>
-              {row.map((node, nodeIdx) => {
+            // rowIdx is for each row across the grid
+            <div className='grid-row' key={rowIdx}>
+              {row.map((node, i) => {
+                //extract the values out of the node object
                 const { row, col, isIsland } = node;
+
                 return (
                   <Node
-                    key={nodeIdx}
+                    key={`${rowIdx}-${col}`}
                     col={col}
-                    isIsland={isIsland}
-                    mouseIsPressed={mouseIsPressed}
-                    onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                    onMouseEnter={(row, col) => this.handleMouseEnter(row, col)}
-                    onMouseUp={() => this.handleMouseUp()}
                     row={row}
+                    isIsland={isIsland}
+                    onClick={() => handleNodeStateChange(row, col)}
                   ></Node>
                 );
               })}
@@ -54,39 +52,55 @@ const IslandVisualization = (props) => {
           );
         })}
       </div>
+      <button onClick={() => visualizeBFS()}>Breath First Search</button>
+      <button onClick={() => handleReset()}>Reset Grid</button>
     </>
   );
 };
 
+//build the inital grid
+/*
+
+grid = [[0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+       ]
+*/
+
 const getInitialGrid = () => {
   const grid = [];
-  for (let row = 0; row < 20; row++) {
-    const currentRow = [];
-    for (let col = 0; col < 50; col++) {
-      currentRow.push(createNode(col, row));
+  //create each row then push to the grid obj
+  for (let row = 0; row < 4; row++) {
+    let newRow = [];
+    for (let col = 0; col < 5; col++) {
+      newRow.push(createNode(row, col));
     }
-    grid.push(currentRow);
+    grid.push(newRow);
   }
   return grid;
 };
 
-const createNode = (col, row) => {
+const createNode = (r, c) => {
   return {
-    col,
-    row,
+    row: r,
+    col: c,
     isVisited: false,
     isIsland: false,
-    previousNode: null,
   };
 };
 
-const getNewGridWithWallToggled = (grid, row, col) => {
-  const newGrid = grid.slice();
+//update function to toggle islands
+const getUpdatedGrid = (grid, row, col) => {
+  const newGrid = grid.slice(); // copy the array
   const node = newGrid[row][col];
+
+  //change the value of the selected node
   const newNode = {
     ...node,
     isIsland: !node.isIsland,
   };
+
+  //reassign the new node & return updated grid
   newGrid[row][col] = newNode;
   return newGrid;
 };
