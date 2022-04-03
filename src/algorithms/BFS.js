@@ -1,25 +1,31 @@
-/*
-{
-  {0: 1,2,3},
-  {1: 0,2},
-  {2: 0,3,4},
-  {3: 0,2},
-}
-*/
-
 // time complexity ->
 // space complexity ->
 
-const BFS = (grid, adj, visited) => {
-  for (let r = 0; r < grid.length; r++) {
-    for (let c = 0; c < grid[0].length; c++) {}
-    //found an island case
-    if (grid[i].isIsland && visited[i] === false) {
-      let row = grid[i].row;
-      let col = grid[i].col;
-      islandSearch(row, col, visited);
-    }
+/*params
+
+grid -> 2d array of node objects
+
+*/
+
+//BFS search
+const bfsSearch = (grid, r, c, visited) => {
+  const rowInbounds = r >= 0 && r < grid.length;
+  const colInbounds = c >= 0 && c < grid[0].length;
+  if (!rowInbounds || !colInbounds) return false; //bounds checking
+
+  if (grid[r][c].isIsland === false) return false; //island checking
+
+  const pos = r + ',' + c; //create a string literal to search the set with (must be a primative data type to avoid comparing references)
+  if (visited.has(pos)) return false; //if they island has already been explored
+  visited.add(pos);
+
+  //starting point
+  let queue = [];
+  queue.push(grid[r][c]);
+
+  while (queue.length !== 0) {
+    let visiting = queue.shift();
   }
 };
 
-const islandSearch = (row, col, visited) => {};
+export default bfsSearch;
