@@ -125,19 +125,4 @@ const getUpdatedGrid = (grid, row, col) => {
   return newGrid;
 };
 
-const loopThroughGrid = (grid, row, col) => {
-  const newGrid = grid.slice(); // copy the array
-  const node = newGrid[row][col];
-
-  //change the value of the selected node
-  const newNode = {
-    ...node,
-    isVisited: true,
-  };
-
-  //reassign the new node & return updated grid
-  newGrid[row][col] = newNode;
-  return newGrid;
-};
-
 export default IslandVisualization;
