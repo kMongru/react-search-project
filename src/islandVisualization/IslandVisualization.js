@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from 'react';
 
 import Node from './node/Node';
+import BottomPanel from '../components/bottomPannel/BottomPanel';
+//algos
 import bfsSearch from '../algorithms/BFS';
 import dfsSearch from '../algorithms/DFS';
 
 import './islandVisualization.css';
+import { GrRotateLeft } from 'react-icons/gr';
 
 const IslandVisualization = (props) => {
   const [grid, setGrid] = useState([]);
+  const [algoToggle, setAlgoToggle] = useState(true);
+  const [overlay, setOverlay] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     handleReset();
   }, []);
 
-  const handleVisualization = (attributes) => {
-    const { type } = attributes;
-
+  const handleVisualization = (type) => {
     const visited = new Set();
-    let count = 0,
+    let currCount = 0,
       maximum = 0;
 
     for (let r = 0; r < grid.length; r++) {
       for (let c = 0; c < grid[0].length; c++) {
         let currNode = grid[r][c];
 
-        if (currNode.isIsland && !currNode.isVisited) count++;
+        if (currNode.isIsland && !currNode.isVisited) currCount++;
 
         type === 'BFS' && currNode.isIsland
           ? bfsSearch(grid, r, c, visited)
           : dfsSearch(grid, r, c, visited);
       }
     }
-    console.log(count);
+
+    setCount(currCount);
+    setOverlay(true);
   };
 
   const handleNodeStateChange = (row, col) => {
@@ -42,10 +48,12 @@ const IslandVisualization = (props) => {
   const handleReset = () => {
     const grid = getInitialGrid();
     setGrid(grid);
+    setOverlay(false);
+    setCount(0);
   };
 
   return (
-    <>
+    <div className='container'>
       <div className='grid'>
         {grid.map((row, rowIdx) => {
           return (
@@ -54,7 +62,6 @@ const IslandVisualization = (props) => {
               {row.map((node, i) => {
                 //extract the values out of the node object
                 const { row, col, isIsland } = node;
-
                 return (
                   <Node
                     key={`${rowIdx}-${col}`}
@@ -69,14 +76,35 @@ const IslandVisualization = (props) => {
           );
         })}
       </div>
-      <button onClick={() => handleVisualization({ type: 'BFS' })}>
-        Breath First Search
-      </button>
-      <button onClick={() => handleVisualization({ type: 'DFS' })}>
-        Depth First Search
-      </button>
-      <button onClick={() => handleReset()}>Reset Grid</button>
-    </>
+      {overlay && (
+        <div className='reset-overlay'>
+          <div className='reset-btn_container' onClick={() => handleReset()}>
+            <h2>Reset</h2>
+            <GrRotateLeft size={20} color='white' />
+          </div>
+        </div>
+      )}
+
+      <div className={`secondary-bg`}>
+        {algoToggle ? (
+          <BottomPanel
+            title={'Breath First Search'}
+            description={''}
+            searchFunction={() => handleVisualization('BFS')}
+            toggle={() => setAlgoToggle(!algoToggle)}
+            count={count}
+          />
+        ) : (
+          <BottomPanel
+            title={'Depth First Search'}
+            description={''}
+            searchFunction={() => handleVisualization('DFS')}
+            toggle={() => setAlgoToggle(!algoToggle)}
+            count={count}
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

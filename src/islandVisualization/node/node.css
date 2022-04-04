@@ -1,13 +1,13 @@
 .node {
   width: var(--node-dimensions);
   height: var(--node-dimensions);
-  outline: 1px solid rgb(175, 216, 248);
+  outline: 1px solid rgb(30, 32, 32);
   display: inline-block;
   cursor: pointer;
 }
 
 .water {
-  background-color: aqua;
+  background-color: var(--water);
 }
 
 .island {

@@ -1,3 +1,56 @@
-.App {
+* {
+  box-sizing: border-box;
+  /* Browers Default with Padding/Margins, want to remove */
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h4 {
+  font-weight: 600;
+  color: var(--text);
+}
+
+h1 {
+  font-size: clamp(20rem, 3vw, 40rem);
+}
+
+h2 {
+  font-weight: 600;
+  font-size: clamp(15rem, 3vw, 20rem);
+  color: white;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10rem;
+
+  height: 10vh;
+}
+
+.header-flex-row {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.app-grid-conatiner {
+  flex: 1;
 }

@@ -1,0 +1,44 @@
+.wrapper{
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+}
+
+.left-side{
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  justify-content: space-around;
+  padding: 20rem;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-row h2 {
+  margin-right: 20rem;
+}
+
+.toggle {
+  cursor: pointer;
+}
+
+.button-wrapper{
+  width: 10vw;
+  background-color: var(--bg-primary);
+
+  border-radius: 5rem;
+  cursor: pointer;
+}
+
+.button-wrapper h2 {
+  color: var(--text)
+}
+
+.right-side{
+  flex:1;
+  padding: 20rem;
+}
