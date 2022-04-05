@@ -11,6 +11,7 @@ import { GrRotateLeft } from 'react-icons/gr';
 
 const IslandVisualization = (props) => {
   const [grid, setGrid] = useState([]);
+
   const [algoToggle, setAlgoToggle] = useState(true);
   const [overlay, setOverlay] = useState(false);
   const [count, setCount] = useState(0);
@@ -19,20 +20,33 @@ const IslandVisualization = (props) => {
     handleReset();
   }, []);
 
-  const handleVisualization = (type) => {
+  const delay = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+
+  const handleVisualization = async (type) => {
     const visited = new Set();
     let currCount = 0,
       maximum = 0;
 
     for (let r = 0; r < grid.length; r++) {
       for (let c = 0; c < grid[0].length; c++) {
+        // TODO pass the handleStateChange as a arg to the the search functions
+
+        handleNodeStateChange(r, c, 'isVisited'); //change to re-render node
+
         let currNode = grid[r][c];
 
+        //catching an island case
         if (currNode.isIsland && !currNode.isVisited) currCount++;
 
+        //search functions
         type === 'BFS' && currNode.isIsland
           ? bfsSearch(grid, r, c, visited)
           : dfsSearch(grid, r, c, visited);
+
+        //delay between repitions
+        await delay(50);
       }
     }
 
@@ -40,8 +54,8 @@ const IslandVisualization = (props) => {
     setOverlay(true);
   };
 
-  const handleNodeStateChange = (row, col) => {
-    const newGrid = getUpdatedGrid(grid, row, col);
+  const handleNodeStateChange = (row, col, change) => {
+    const newGrid = getUpdatedGrid(grid, row, col, change);
     setGrid(newGrid);
   };
 
@@ -61,14 +75,15 @@ const IslandVisualization = (props) => {
             <div className='grid-row' key={rowIdx}>
               {row.map((node, i) => {
                 //extract the values out of the node object
-                const { row, col, isIsland } = node;
+                const { row, col, isIsland, isVisited } = node;
                 return (
                   <Node
                     key={`${rowIdx}-${col}`}
                     col={col}
                     row={row}
                     isIsland={isIsland}
-                    onClick={() => handleNodeStateChange(row, col)}
+                    isVisited={isVisited}
+                    onClick={() => handleNodeStateChange(row, col, 'isIsland')}
                   ></Node>
                 );
               })}
@@ -138,15 +153,23 @@ const createNode = (r, c) => {
 };
 
 //update function to toggle islands
-const getUpdatedGrid = (grid, row, col) => {
+const getUpdatedGrid = (grid, row, col, change) => {
   const newGrid = grid.slice(); // copy the array
   const node = newGrid[row][col];
+  let newNode = {};
 
   //change the value of the selected node
-  const newNode = {
-    ...node,
-    isIsland: !node.isIsland,
-  };
+  if (change === 'isIsland') {
+    newNode = {
+      ...node,
+      isIsland: !node.isIsland,
+    };
+  } else if (change === 'isVisited') {
+    newNode = {
+      ...node,
+      isVisited: !node.isVisited,
+    };
+  }
 
   //reassign the new node & return updated grid
   newGrid[row][col] = newNode;

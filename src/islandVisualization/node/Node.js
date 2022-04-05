@@ -2,19 +2,31 @@ import React, { useState, useEffect } from 'react';
 
 import './node.css';
 
-const Node = ({ row, col, isIsland, isVisted, onClick }) => {
+const Node = ({ row, col, isIsland, isVisited, onClick }) => {
   const extraClassName = isIsland ? 'island' : 'water';
-  const animationTrigger = isVisted ? 'node-visted' : '';
+
+  const animationClassName =
+    isIsland && isVisited ? 'node-flipping-animation' : '';
 
   return (
-    <div
-      id={`node-${row}-${col}`}
-      isIsland={isIsland}
-      className={`node ${extraClassName}`}
-      onClick={() => {
-        onClick();
-      }}
-    ></div>
+    <div className='node-container' id={`node-${row}-${col}`}>
+      <div className={`node-inner ${animationClassName}`}>
+        <div
+          isIsland={isIsland}
+          className={`node-front ${extraClassName}`}
+          onClick={() => {
+            onClick();
+          }}
+        >
+          {isVisited && (
+            <div className='node-circle'>
+              <h1>hi</h1>
+            </div>
+          )}
+        </div>
+        <div className='node-back'></div>
+      </div>
+    </div>
   );
 };
 

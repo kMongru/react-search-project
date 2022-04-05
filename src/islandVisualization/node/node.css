@@ -1,9 +1,18 @@
-.node {
+.node-container {
   width: var(--node-dimensions);
   height: var(--node-dimensions);
   outline: 1px solid rgb(30, 32, 32);
   display: inline-block;
   cursor: pointer;
+  perspective: 100rem;
+  background-color: transparent;
+}
+
+.node-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 .water {
@@ -14,71 +23,54 @@
   background-color: rgb(12, 53, 71);
 }
 
-.node-finish {
-  background-color: red;
+/* Water Search Animation */
+.node-circle {
+  height: var(--node-dimensions);
+  width: var(--node-dimensions);
+  border-radius:50%;
+  transform: scale(0);
+  background-color:red;
+  animation: scaling 2.5s ease-in-out 1;
+  display: inline-block;
+  margin:.5rem;
 }
 
-.node-start {
-  background-color: green;
-}
-
-.node-visited {
-  animation-name: visitedAnimation;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
-}
-
-@keyframes visitedAnimation {
-  0% {
+@keyframes scaling{
+  0%, 100%{
+    transform: scale(0.1);
+    background-color: #30FFB7;
+  }
+  40%{
     transform: scale(0.3);
-    background-color: rgba(0, 0, 66, 0.75);
-    border-radius: 100%;
+    background-color: #07DEFF;
   }
-
-  50% {
-    background-color: rgba(17, 104, 217, 0.75);
-  }
-
-  75% {
-    transform: scale(1.2);
-    background-color: rgba(0, 217, 159, 0.75);
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: rgba(0, 190, 218, 0.75);
+  50%{
+    transform: scale(0.5);
+    background-color: #0761FF;
   }
 }
 
-.node-shortest-path {
-  animation-name: shortestPath;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
+/* Land Search Animation */
+.node-flipping-animation {
   animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
 }
 
-@keyframes shortestPath {
-  0% {
-    transform: scale(0.6);
-    background-color: rgb(255, 254, 106);
-  }
-
-  50% {
-    transform: scale(1.2);
-    background-color: rgb(255, 254, 106);
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: rgb(255, 254, 106);
-  }
+/* Position the front and back side */
+.node-front, .node-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
 }
+
+.node-back {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
