@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import Node from './node/Node';
 import BottomPanel from '../components/bottomPannel/BottomPanel';
+
 //algos
 import bfsSearch from '../algorithms/BFS';
 import dfsSearch from '../algorithms/DFS';
 
 import './islandVisualization.css';
 import { GrRotateLeft } from 'react-icons/gr';
+import delay from '../components/delayFunction';
+import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
 
 const IslandVisualization = (props) => {
   const [grid, setGrid] = useState([]);
@@ -15,42 +18,42 @@ const IslandVisualization = (props) => {
   const [algoToggle, setAlgoToggle] = useState(true);
   const [overlay, setOverlay] = useState(false);
   const [count, setCount] = useState(0);
+  const [max, setMax] = useState(0);
 
   useEffect(() => {
     handleReset();
   }, []);
 
-  const delay = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
   const handleVisualization = async (type) => {
-    const visited = new Set();
     let currCount = 0,
       maximum = 0;
 
     for (let r = 0; r < grid.length; r++) {
       for (let c = 0; c < grid[0].length; c++) {
-        // TODO pass the handleStateChange as a arg to the the search functions
-
-        handleNodeStateChange(r, c, 'isVisited'); //change to re-render node
-
         let currNode = grid[r][c];
 
-        //catching an island case
-        if (currNode.isIsland && !currNode.isVisited) currCount++;
-
-        //search functions
-        type === 'BFS' && currNode.isIsland
-          ? bfsSearch(grid, r, c, visited)
-          : dfsSearch(grid, r, c, visited);
-
-        //delay between repitions
-        await delay(50);
+        if (currNode.isIsland && !currNode.isVisited) {
+          //search functions
+          type === 'BFS' && currNode.isIsland
+            ? (maximum = Math.max(
+                bfsSearch(grid, r, c, handleNodeStateChange),
+                maximum
+              ))
+            : (maximum = Math.max(
+                dfsSearch(grid, r, c, handleNodeStateChange),
+                maximum
+              ));
+          currCount++;
+        } else if (!currNode.isVisited) {
+          handleNodeStateChange(r, c, 'isVisited'); //change to re-render node
+          //delay between repitions
+          await delay(50);
+        }
       }
     }
 
     setCount(currCount);
+    setMax(maximum);
     setOverlay(true);
   };
 
@@ -64,6 +67,7 @@ const IslandVisualization = (props) => {
     setGrid(grid);
     setOverlay(false);
     setCount(0);
+    setMax(0);
   };
 
   return (
@@ -104,18 +108,41 @@ const IslandVisualization = (props) => {
         {algoToggle ? (
           <BottomPanel
             title={'Breath First Search'}
-            description={''}
+            description={
+              <>
+                <p>
+                  The algorithm starts traversing the graph from the root node
+                  and explores all the neighboring nodes. Then, it selects the
+                  nearest node and explores all the unexplored nodes.
+                </p>
+                <p>Base Structure: Queue</p>
+                <p>Time Complexity: O(V + E)</p>
+              </>
+            }
             searchFunction={() => handleVisualization('BFS')}
             toggle={() => setAlgoToggle(!algoToggle)}
             count={count}
+            max={max}
           />
         ) : (
           <BottomPanel
             title={'Depth First Search'}
-            description={''}
+            description={
+              <>
+                <p>
+                  The algorithm starts at the root (top) node of a tree and goes
+                  as far as it can down a given branch (path), then backtracks
+                  until it finds an unexplored path, and then explores it. The
+                  algorithm does this until the entire graph has been explored.
+                </p>
+                <p>Base Structure: Stack</p>
+                <p>Time Complexity: O(V + E)</p>
+              </>
+            }
             searchFunction={() => handleVisualization('DFS')}
             toggle={() => setAlgoToggle(!algoToggle)}
             count={count}
+            max={max}
           />
         )}
       </div>

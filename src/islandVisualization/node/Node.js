@@ -18,11 +18,7 @@ const Node = ({ row, col, isIsland, isVisited, onClick }) => {
             onClick();
           }}
         >
-          {isVisited && (
-            <div className='node-circle'>
-              <h1>hi</h1>
-            </div>
-          )}
+          {isVisited && <div className='node-circle'></div>}
         </div>
         <div className='node-back'></div>
       </div>

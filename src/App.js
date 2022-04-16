@@ -9,11 +9,11 @@ function App() {
   return (
     <div className='app'>
       <div className='app-header'>
-        <h1>Basic Search Algorithms Visualization</h1>
+        <h1>Search Visualization</h1>
         <div className='header-flex-row'>
-          <FaCode size={30} />
-          <h2 style={{ color: 'black' }}>&</h2>
-          <FaPencilAlt size={30} />
+          <FaCode size={20} />
+          <h2 className='header-and'>&</h2>
+          <FaPencilAlt size={20} />
         </div>
       </div>
       <div className='app-grid-container'>

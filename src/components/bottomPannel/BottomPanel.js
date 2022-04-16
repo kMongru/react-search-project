@@ -4,7 +4,14 @@ import { HiOutlineSwitchHorizontal } from 'react-icons/hi';
 
 import './bottomPanel.css';
 
-const BottomPanel = ({ title, description, searchFunction, toggle, count }) => {
+const BottomPanel = ({
+  title,
+  description,
+  searchFunction,
+  toggle,
+  count,
+  max,
+}) => {
   return (
     <div className='wrapper'>
       <div className='left-side'>
@@ -24,6 +31,7 @@ const BottomPanel = ({ title, description, searchFunction, toggle, count }) => {
       </div>
       <div className='right-side'>
         <h2>{`Count: ${count}`}</h2>
+        <h2>{`Max: ${max}`}</h2>
       </div>
     </div>
   );

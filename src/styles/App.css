@@ -31,6 +31,13 @@ h2 {
   color: white;
 }
 
+p {
+  font-weight: 300;
+  font-size: clamp(11rem, 3vw, 14rem);
+  color: white;
+  text-align: left;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -41,14 +48,17 @@ h2 {
   display: flex;
   justify-content: space-between;
   padding: 10rem;
-
   height: 10vh;
+}
+
+.header-and {
+  padding: 0rem 10rem;
+  color: black;
 }
 
 .header-flex-row {
   display: flex;
   flex-direction: row;
-
 }
 
 .app-grid-conatiner {
