@@ -25,27 +25,33 @@ const IslandVisualization = (props) => {
   }, []);
 
   const handleVisualization = async (type) => {
+    let visitedSet = new Set();
     let currCount = 0,
       maximum = 0;
 
     for (let r = 0; r < grid.length; r++) {
       for (let c = 0; c < grid[0].length; c++) {
         let currNode = grid[r][c];
+        let currCoordinate = r + ',' + c;
 
-        if (currNode.isIsland && !currNode.isVisited) {
+        if (currNode.isIsland && !visitedSet.has(currCoordinate)) {
           //search functions
-          type === 'BFS' && currNode.isIsland
+          type === 'BFS'
             ? (maximum = Math.max(
-                bfsSearch(grid, r, c, handleNodeStateChange),
+                await bfsSearch(grid, r, c, visitedSet, handleNodeStateChange),
                 maximum
               ))
             : (maximum = Math.max(
-                dfsSearch(grid, r, c, handleNodeStateChange),
+                await dfsSearch(grid, r, c, visitedSet, handleNodeStateChange),
                 maximum
               ));
+
+          //add to total count
           currCount++;
-        } else if (!currNode.isVisited) {
+        } else if (!visitedSet.has(currCoordinate)) {
+          visitedSet.add(currCoordinate);
           handleNodeStateChange(r, c, 'isVisited'); //change to re-render node
+
           //delay between repitions
           await delay(50);
         }
