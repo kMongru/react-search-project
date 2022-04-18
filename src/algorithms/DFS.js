@@ -1,28 +1,57 @@
 import delay from '../components/delayFunction';
-let count = 0;
+
+const directions = [
+  [-1, 0],
+  [0, -1],
+  [1, 0],
+  [0, 1],
+];
 
 //DFS search
-const dfsSearch = async (grid, r, c, updateNodeState) => {
-  const rowInbounds = r >= 0 && r < grid.length;
-  const colInbounds = c >= 0 && c < grid[0].length;
-  if (!rowInbounds || !colInbounds) return false; //bounds checking
+const dfsSearch = async (grid, r, c, visitedSet, updateNodeState) => {
+  let stack = [];
+  let size = 0;
 
-  if (grid[r][c].isIsland === false) return false; //island checking
+  stack.push(grid[r][c]);
+  let currCoordinate = r + ',' + c;
+  visitedSet.add(currCoordinate);
 
-  // const pos = r + ',' + c; //create a string literal to search the set with (must be a primative data type to avoid comparing references)
-  if (grid[r][c].isVisited) return false; //if they island has already been explored
-  // visited.add(pos);
-  updateNodeState(r, c, 'isVisited');
-  count++;
-  await delay(50);
+  while (stack.length) {
+    let vistingNode = stack.pop();
+    r = vistingNode.row;
+    c = vistingNode.col;
 
-  //must be at an unvisited path, recurisive calls -> stack stucture
-  dfsSearch(grid, r - 1, c, updateNodeState); //up
-  dfsSearch(grid, r + 1, c, updateNodeState); //down
-  dfsSearch(grid, r, c - 1, updateNodeState); //left
-  dfsSearch(grid, r, c + 1, updateNodeState); //right
+    //trigger state rerender -> visiting node animation
+    updateNodeState(r, c, 'isVisited');
+    await delay(50);
 
-  return count;
+    size++;
+
+    for (let [x, y] of directions) {
+      let newRow = r + x;
+      let newCol = c + y;
+      let currPos = newRow + ',' + newCol;
+
+      //bounds checking
+      const rowInbounds = newRow >= 0 && newRow < grid.length;
+      const colInbounds = newCol >= 0 && newCol < grid[0].length;
+
+      if (!rowInbounds || !colInbounds) continue; //breaks to the next interation of the loop
+
+      //land check & visited check
+      const isVisitedIsland =
+        !grid[newRow][newCol].isIsland || visitedSet.has(currPos);
+
+      if (isVisitedIsland) continue;
+
+      //cleared all checks, need to mark as visted and add to stack and break out of the for loop
+      visitedSet.add(currPos);
+      let newNode = grid[newRow][newCol];
+      stack.push(newNode);
+    }
+  }
+
+  return size;
 };
 
 export default dfsSearch;

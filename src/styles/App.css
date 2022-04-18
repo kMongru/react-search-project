@@ -56,6 +56,14 @@ p {
   color: black;
 }
 
+.header-btn {
+  color: black;
+}
+
+.header-btn:hover {
+  transform: scale(1.1);
+}
+
 .header-flex-row {
   display: flex;
   flex-direction: row;

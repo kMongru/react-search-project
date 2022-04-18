@@ -10,7 +10,6 @@ import dfsSearch from '../algorithms/DFS';
 import './islandVisualization.css';
 import { GrRotateLeft } from 'react-icons/gr';
 import delay from '../components/delayFunction';
-import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
 
 const IslandVisualization = (props) => {
   const [grid, setGrid] = useState([]);
