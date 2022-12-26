@@ -33,8 +33,8 @@ const BottomPanel = ({
       </div>
       <div className='right-side'>
         <h2 style={{ marginBottom: '10rem' }}>Traversal Statistics</h2>
-        <p>{`Count: ${count}`}</p>
-        <p>{`Max: ${max}`}</p>
+        <p>{`Number of Islands: ${count}`}</p>
+        <p>{`Largest Island Size: ${max}`}</p>
       </div>
     </>
   );

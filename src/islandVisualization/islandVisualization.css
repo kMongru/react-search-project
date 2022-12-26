@@ -20,9 +20,9 @@
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
   position: absolute;
-  height: 54vw;
-  width: 72vw;
-  margin: 1.8vw 1.0vw;
+  height: 55vw;
+  width: 65vw;
+  margin: 4.8vw 4.0vw;
   border-width: 1px;
   outline: 1px solid rgb(30, 32, 32);
 }
