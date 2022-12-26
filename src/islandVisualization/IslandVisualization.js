@@ -52,7 +52,7 @@ const IslandVisualization = (props) => {
           handleNodeStateChange(r, c, 'isVisited'); //change to re-render node
 
           // //delay between repitions
-          await delay(0.01);
+          await delay(20);
         }
       }
     }
