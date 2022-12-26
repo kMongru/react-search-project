@@ -1,14 +1,13 @@
 .container {
   display: flex;
-  flex-direction: column;
-
+  flex-direction: row;
   width: 100%;
   height: 90vh;
 }
 
 .grid {
   margin: 25rem 0 0;
-  flex: 1;
+  flex: 3;
 }
 
 .grid-row {
@@ -21,9 +20,9 @@
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
   position: absolute;
-  height: 30vw;
-  width: 45vw;
-  margin: 1.8vw 27.5vw;
+  height: 54vw;
+  width: 72vw;
+  margin: 1.8vw 1.0vw;
   border-width: 1px;
   outline: 1px solid rgb(30, 32, 32);
 }
@@ -47,8 +46,8 @@
 
 .secondary-bg {
   display: flex;
+  flex-direction: column;
   flex: 1;
-
   margin-top: 25rem;
-  background-color: var(--bg-secondary);
+  margin-right: 10rem;
 }

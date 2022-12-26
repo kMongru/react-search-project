@@ -8,7 +8,7 @@ import IslandVisualization from './islandVisualization/IslandVisualization';
 function App() {
   return (
     <div className='app'>
-      <div className='app-header'>
+      {/* <div className='app-header'>
         <h1>Search Visualization</h1>
         <div className='header-flex-row'>
           <a
@@ -27,7 +27,7 @@ function App() {
             <FaPencilAlt size={20} />
           </a>
         </div>
-      </div>
+      </div> */}
       <div className='app-grid-container'>
         <IslandVisualization />
       </div>

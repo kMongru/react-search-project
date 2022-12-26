@@ -51,8 +51,8 @@ const IslandVisualization = (props) => {
           visitedSet.add(currCoordinate);
           handleNodeStateChange(r, c, 'isVisited'); //change to re-render node
 
-          //delay between repitions
-          await delay(50);
+          // //delay between repitions
+          await delay(0.01);
         }
       }
     }
@@ -165,9 +165,9 @@ grid = [[0,0,0,0],
 const getInitialGrid = () => {
   const grid = [];
   //create each row then push to the grid obj
-  for (let row = 0; row < 10; row++) {
+  for (let row = 0; row < 18; row++) {
     let newRow = [];
-    for (let col = 0; col < 15; col++) {
+    for (let col = 0; col < 24; col++) {
       newRow.push(createNode(row, col));
     }
     grid.push(newRow);
