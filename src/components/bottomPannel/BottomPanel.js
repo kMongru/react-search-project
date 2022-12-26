@@ -25,7 +25,7 @@ const BottomPanel = ({
               color='white'
             />
           </div>
-          <p>{description}</p>
+          {description}
           <div className='button-wrapper' onClick={() => searchFunction()}>
             <h2>Search!</h2>
           </div>

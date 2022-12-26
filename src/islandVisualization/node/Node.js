@@ -12,7 +12,7 @@ const Node = ({ row, col, isIsland, isVisited, onClick }) => {
     <div className='node-container' id={`node-${row}-${col}`}>
       <div className={`node-inner ${animationClassName}`}>
         <div
-          isIsland={isIsland}
+          // isIsland={isIsland}
           className={`node-front ${extraClassName}`}
           onClick={() => {
             onClick();
