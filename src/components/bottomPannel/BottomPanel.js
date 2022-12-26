@@ -17,10 +17,10 @@ const BottomPanel = ({
       <div className='wrapper'>
         <div className='left-side'>
           <div className='flex-row'>
-            <h2>{title}</h2>
+            <h2 style={{ whiteSpace: 'nowrap' }}>{title}</h2>
             <HiOutlineSwitchHorizontal
               className='toggle'
-              size={20}
+              size={13}
               onClick={() => toggle()}
               color='white'
             />
@@ -33,8 +33,8 @@ const BottomPanel = ({
       </div>
       <div className='right-side'>
         <h2 style={{ marginBottom: '10rem' }}>Traversal Statistics</h2>
-        <h3>{`Count: ${count}`}</h3>
-        <h3>{`Max: ${max}`}</h3>
+        <p>{`Count: ${count}`}</p>
+        <p>{`Max: ${max}`}</p>
       </div>
     </>
   );

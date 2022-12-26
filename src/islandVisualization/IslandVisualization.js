@@ -165,9 +165,9 @@ grid = [[0,0,0,0],
 const getInitialGrid = () => {
   const grid = [];
   //create each row then push to the grid obj
-  for (let row = 0; row < 18; row++) {
+  for (let row = 0; row < 11; row++) {
     let newRow = [];
-    for (let col = 0; col < 24; col++) {
+    for (let col = 0; col < 13; col++) {
       newRow.push(createNode(row, col));
     }
     grid.push(newRow);

@@ -9,7 +9,7 @@
   flex-direction: column;
   flex:1;
   justify-content: space-around;
-  padding: 20rem;
+  padding: 10rem;
 }
 
 .flex-row {
@@ -30,6 +30,7 @@
 .button-wrapper{
   width: 100%;
   background-color: var(--bg-primary);
+  height: 10vh;
 
   border-radius: 5rem;
   cursor: pointer;
@@ -45,21 +46,19 @@
 }
 
 .right-side{
-  margin-top: 30rem;
+  margin-top: 15rem;
   flex:1;
-  padding: 20rem;
+  padding: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   background-color: var(--bg-secondary);
-  max-height: 15vh;
-
-  
+  max-height: min-content;  
 }
 
 .right-side h3 {
-  font-size: 20rem;
+  font-size: 10rem;
   font-weight: 400;
   color: whitesmoke
 }
